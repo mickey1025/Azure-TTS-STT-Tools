@@ -1,0 +1,95 @@
+package com.microsoft.cognitiveservices.text;
+
+//
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license.
+//
+// Microsoft Cognitive Services (formerly Project Oxford): https://www.microsoft.com/cognitive-services
+//
+// Microsoft Cognitive Services (formerly Project Oxford) GitHub:
+// https://github.com/Microsoft/Cognitive-Speech-TTS
+//
+// Copyright (c) Microsoft Corporation
+// All rights reserved.
+//
+// MIT License:
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to
+// the following conditions:
+//
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+
+import javax.net.ssl.HttpsURLConnection;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+
+public class TTSService {
+
+    // private static String ttsServiceUri = "https://westus.tts.speech.microsoft.com/cognitiveservices/v1";
+   // private static String ttsServiceUri = "https://eastasia.voice.speech.microsoft.com/cognitiveservices/v1?deploymentId=****************";
+
+    /**
+     * Synthesize the voice through the specified parameters.
+     */
+    public static byte[] Synthesize(String textToSynthesize, String outputFormat, String locale, String genderName, String voiceName, String apiKey, String ttsServiceUri) throws Exception {
+
+        // Note: new unified SpeechService API key and issue token uri is per region
+        // New unified SpeechService key
+        // Free: https://azure.microsoft.com/en-us/try/cognitive-services/?api=speech-services
+        // Paid: https://go.microsoft.com/fwlink/?LinkId=872236
+
+        Authentication auth = new Authentication(apiKey);
+        String accessToken = auth.GetAccessToken();
+
+        HttpsURLConnection webRequest = HttpsConnection.getHttpsConnection(ttsServiceUri);
+        webRequest.setDoInput(true);
+        webRequest.setDoOutput(true);
+        webRequest.setConnectTimeout(5000);
+        webRequest.setReadTimeout(15000);
+        webRequest.setRequestMethod("POST");
+
+        webRequest.setRequestProperty("Content-Type", "application/ssml+xml");
+        webRequest.setRequestProperty("X-Microsoft-OutputFormat", outputFormat);
+        webRequest.setRequestProperty("Authorization", "Bearer " + accessToken);
+        webRequest.setRequestProperty("Accept", "*/*");
+
+        String body = XmlDom.createDom(locale, genderName, voiceName, textToSynthesize);
+        byte[] bytes = body.getBytes();
+        webRequest.setRequestProperty("content-length", String.valueOf(bytes.length));
+        webRequest.connect();
+
+        DataOutputStream dop = new DataOutputStream(webRequest.getOutputStream());
+        dop.write(bytes);
+        dop.flush();
+        dop.close();
+
+        InputStream inSt = webRequest.getInputStream();
+        ByteArray ba = new ByteArray();
+
+        int rn2 = 0;
+        int bufferLength = 4096;
+        byte[] buf2 = new byte[bufferLength];
+        while ((rn2 = inSt.read(buf2, 0, bufferLength)) > 0) {
+            ba.cat(buf2, 0, rn2);
+        }
+
+        inSt.close();
+        webRequest.disconnect();
+
+        return ba.getArray();
+    }
+}
