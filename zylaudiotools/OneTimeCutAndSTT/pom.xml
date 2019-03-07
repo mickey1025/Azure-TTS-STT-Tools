@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>OneTimeCutAndSTT</groupId>
+    <artifactId>OneTimeCutAndSTT</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>maven-cognitiveservices-speech</id>
+            <name>Microsoft Cognitive Services Speech Maven Repository</name>
+            <url>https://csspeechstorage.blob.core.windows.net/maven/</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>com.microsoft.cognitiveservices.speech</groupId>
+            <artifactId>client-sdk</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/gson-2.8.5.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>jave</groupId>
+            <artifactId>jave</artifactId>
+            <version>1.0.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/jave-1.0.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/commons-io-2.5.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+    
+</project>
