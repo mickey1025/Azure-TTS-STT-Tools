@@ -36,11 +36,6 @@ public class SimpleExample {
 
   public static void main(String[] args) throws Exception {
 
-    System.setProperty("http.proxyHost", "web-proxy.penske.com");
-    System.setProperty("http.proxyPort", "80");
-    System.setProperty("https.proxyHost", "web-proxy.penske.com");
-    System.setProperty("https.proxyPort", "80");
-
     try {
 
       //TODO Change NO
@@ -50,7 +45,7 @@ public class SimpleExample {
       String filePath = "C:\\test\\001.mp3";
 
       //TODO Change to your own ffmpeg.exe path
-      String ffmpge = "C:\\Users\\505007855\\TOOLS\\ffmpeg\\bin\\ffmpeg.exe";
+      String ffmpge = "C:\\test\\ffmpeg.exe";
 
       //TODO Change to your own output path
       String targetPath = "C:\\test\\result\\";
@@ -60,7 +55,7 @@ public class SimpleExample {
 
 
       // TODO 改为你自己的 KEY
-      String key = "aa7390e89c384b25bdf4dd9a74e93dec";
+      String key = "*****************";
 
       SpeechClientREST client = new SpeechClientREST(new Authentication(key));
 
