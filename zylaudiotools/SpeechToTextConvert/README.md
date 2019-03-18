@@ -9,7 +9,7 @@
 
 :star: [Authentication.java](https://github.com/mickey1025/Azure-TTS-STT-Tools/blob/master/zylaudiotools/SpeechToTextConvert/src/main/java/com/microsoft/speech/Authentication.java)
 
-:small_orange_diamond: [FETCH_TOKEN_URI](https://github.com/mickey1025/Azure-TTS-STT-Tools/blob/9294d238904caf12f6efcabee8c1f8d21e779328/zylaudiotools/SpeechToTextConvert/src/main/java/com/microsoft/speech/Authentication.java#L33)：Azure用来生成验证token的URL，根据服务所在的区域选择不同的URL：
+:small_blue_diamond: [FETCH_TOKEN_URI](https://github.com/mickey1025/Azure-TTS-STT-Tools/blob/9294d238904caf12f6efcabee8c1f8d21e779328/zylaudiotools/SpeechToTextConvert/src/main/java/com/microsoft/speech/Authentication.java#L33)：Azure用来生成验证token的URL，根据服务所在的区域选择不同的URL：
   
   ```text
 West US	                    https://westus.api.cognitive.microsoft.com/sts/v1.0/issueToken
